@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useTransform, useViewportScroll } from 'framer-motion';
 
 const Wrapper = styled(motion.div)`
-  height: 100vh;
+  height: 200vh;
   width: 100vw;
   display: flex;
   justify-content: center;
@@ -85,10 +85,15 @@ function App() {
     'linear-gradient(135deg,rgb(9, 170, 184),rgb(130, 208, 244))',
     'linear-gradient(135deg,rgb(238, 0, 153),rgb(221, 0, 238))',
     'linear-gradient(135deg,rgb(192, 22, 22),rgb(245, 113, 113))'
-  ])
+  ]);
+  const {scrollYProgress} = useViewportScroll();
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 3]);
   // useEffect(() => {
   //   x.onChange(() => console.log(x.get()));
   // },[x])
+  // useEffect(() => {
+  //   scrollY.onChange(() => console.log(scrollY.get(), scrollYProgress.get()));
+  // }, [scrollY, scrollYProgress])
   return (
     <Wrapper style={{background: gradient}}>
       {/* <Box transition={{duration: .5}} initial={{transform:'translateY(50px)', opacity:0}} animate={{transform: 'translateY(0px)', opacity: 1}}/> */}
@@ -101,7 +106,7 @@ function App() {
       {/* <BiggerBox ref={biggerBoxRef}>
         <Box drag dragConstraints={biggerBoxRef} dragSnapToOrigin dragElastic={0.5} variants={boxVariant} whileHover='hover' whileTap='tap'/>
       </BiggerBox> */}
-      <Box style={{x, rotateZ}}  drag='x' dragSnapToOrigin/>
+      <Box style={{x, rotateZ, scale}}  drag='x' dragSnapToOrigin/>
     </Wrapper>
   );
 }
