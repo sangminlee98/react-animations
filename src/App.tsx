@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -9,16 +9,16 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const BiggerBox = styled.div`
-  width: 600px;
-  height: 600px;
-  background-color: rgba(255,255,255,0.4);
-  border-radius: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-`;
+// const BiggerBox = styled.div`
+//   width: 600px;
+//   height: 600px;
+//   background-color: rgba(255,255,255,0.4);
+//   border-radius: 30px;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   overflow: hidden;
+// `;
 const Box = styled(motion.div)`
   width: 200px;
   height: 200px;
@@ -68,8 +68,8 @@ const Box = styled(motion.div)`
 // }
 
 const boxVariant = {
-  hover: {scale: 1.5, rotateZ: 90},
-  tap: {borderRadius: '100px', scale: 1},
+  // hover: {scale: 1.5, rotateZ: 90},
+  // tap: {borderRadius: '100px', scale: 1},
   // drag: {
   //   backgroundColor: 'rgb(46,204,113)',
   //   transition: {duration: .3}
@@ -78,7 +78,12 @@ const boxVariant = {
 }
 
 function App() {
-  const biggerBoxRef = useRef<HTMLDivElement>(null);
+  // const biggerBoxRef = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const scale = useTransform(x, [-500, 0, 500], [0.1, 1, 2]);
+  // useEffect(() => {
+  //   x.onChange(() => console.log(x.get()));
+  // },[x])
   return (
     <Wrapper>
       {/* <Box transition={{duration: .5}} initial={{transform:'translateY(50px)', opacity:0}} animate={{transform: 'translateY(0px)', opacity: 1}}/> */}
@@ -88,9 +93,10 @@ function App() {
         <Circle variants={circleVariants}/>
         <Circle variants={circleVariants}/>
       </Box> */}
-      <BiggerBox ref={biggerBoxRef}>
+      {/* <BiggerBox ref={biggerBoxRef}>
         <Box drag dragConstraints={biggerBoxRef} dragSnapToOrigin dragElastic={0.5} variants={boxVariant} whileHover='hover' whileTap='tap'/>
-      </BiggerBox>
+      </BiggerBox> */}
+      <Box style={{x, scale}}  drag='x' dragSnapToOrigin/>
     </Wrapper>
   );
 }
