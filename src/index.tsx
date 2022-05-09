@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
-import App from './App';
+import Presence from './Presence';
+// import App from './App';
 import { theme } from './theme';
 
 const root = ReactDOM.createRoot(
@@ -75,7 +76,8 @@ root.render(
     <RecoilRoot>
       <ThemeProvider theme={theme}>
         <GlobalStyle/>
-        <App />
+        {/* <App /> */}
+        <Presence/>
       </ThemeProvider>
     </RecoilRoot>
   </React.StrictMode>
