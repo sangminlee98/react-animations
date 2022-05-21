@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import Final from './Final';
 import Layout from './Layout';
 import Presence from './Presence';
 // import App from './App';
@@ -79,7 +80,8 @@ root.render(
         <GlobalStyle/>
         {/* <App /> */}
         {/* <Presence/> */}
-        <Layout/>
+        {/* <Layout/> */}
+        <Final/>
       </ThemeProvider>
     </RecoilRoot>
   </React.StrictMode>
